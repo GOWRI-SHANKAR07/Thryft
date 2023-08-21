@@ -8,6 +8,8 @@ import OrderScreen from '../Screens/OrderScreen';
 import ProfileScreen from '../Screens/ProfileScreen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useColorSchemeContext } from '../Theme/ColorTheme';
+import SellScreen from '../Screens/SellScreen';
+import { useNavigationState } from '@react-navigation/native';
 
 // creating Bottom Tab
 const Tab = createBottomTabNavigator();
@@ -16,6 +18,8 @@ const TabScreens = () => {
 
   // colorscheme for dark / light
   const { colorScheme } = useColorSchemeContext();
+
+
 
   return (
     <Tab.Navigator
@@ -41,6 +45,10 @@ const TabScreens = () => {
             iconName = focused
               ? 'shopping'
               : 'shopping-outline';
+          } else if (route.name === 'Sell') {
+            iconName = focused
+              ? 'plus-circle'
+              : 'plus-circle-outline';
           } else if (route.name === 'Order') {
             iconName = focused
               ? 'cart'
@@ -64,6 +72,7 @@ const TabScreens = () => {
       <Tab.Screen name='Home' component={HomeScreen} />
       <Tab.Screen name='Message' component={MessageScreen} />
       <Tab.Screen name='Catlog' component={CatlogScreen} />
+      <Tab.Screen name='Sell' component={SellScreen} />
       <Tab.Screen name='Order' component={OrderScreen} />
       <Tab.Screen name='Profile' component={ProfileScreen} />
     </Tab.Navigator>
