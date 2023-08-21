@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { heightPixel, pixelSizeHorizontal, pixelSizeVertical, widthPixel } from "../Constants/Theme";
+import { Colors, heightPixel, pixelSizeHorizontal, pixelSizeVertical, widthPixel } from "../Constants/Theme";
 
 
 const styles = StyleSheet.create({
@@ -7,18 +7,18 @@ const styles = StyleSheet.create({
         display: "flex",
         flex: 1,
         flexDirection: "column",
-        backgroundColor: '#fff'
+        backgroundColor: Colors.white
     },
 
     headerCont: {
-        backgroundColor: '#121a14',
+        backgroundColor: Colors.secondary,
         height: heightPixel(110),
         flexDirection: 'row',
         justifyContent: "space-between",
     },
 
     headerTxt: {
-        color: '#fff',
+        color: Colors.white,
         paddingTop: pixelSizeVertical(50),
         paddingLeft: pixelSizeHorizontal(20),
         fontSize: 20,
@@ -39,12 +39,12 @@ const styles = StyleSheet.create({
     },
 
     menu: {
-        color: '#fff',
+        color: Colors.white,
         marginRight: pixelSizeHorizontal(10),
     },
 
     sellCont: {
-        backgroundColor: '#385fc3',
+        backgroundColor: Colors.primary,
         alignSelf: "center",
         width: widthPixel(360),
         height: heightPixel(150),
@@ -55,14 +55,14 @@ const styles = StyleSheet.create({
     },
 
     sellTxt: {
-        color: '#fff',
+        color: Colors.white,
         width: widthPixel(210),
         textAlign: "center",
         fontSize: 15
     },
 
     sellBtn: {
-        backgroundColor: '#fff',
+        backgroundColor: Colors.white,
         width: widthPixel(210),
         height: heightPixel(40),
         borderRadius: 20,
