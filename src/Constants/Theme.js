@@ -4,12 +4,14 @@ import { PixelRatio } from 'react-native';
 
 // colors
 export const Colors = {
-    primary: '#00A8E8', //Blue
-    secondary: '#D1F2FF',
+    primary: '#385fc3', //Blue
+    secondary: '#121a14',
 
     black: '#000',
     white: '#FFFFFF',
     black2: '#585858',
+    green: '#00e600',
+    red: '#cc0000',
 
     grey: '#F6F4F4',
     greyDark: '#717070',
