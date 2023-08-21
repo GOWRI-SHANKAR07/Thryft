@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     },
 
     condCont: {
-        backgroundColor: 'lightgray',
+        backgroundColor: Colors.greyMessage,
         width: widthPixel(125),
         flexDirection: "row",
         padding: pixelSizeHorizontal(5),
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
 
     condTxt: {
         fontSize: fontPixel(13),
-        color: '#385fc3'
+        color: Colors.primary,
     },
 
     titleCont: {
@@ -51,14 +51,14 @@ const styles = StyleSheet.create({
 
     edtBtn: {
         borderWidth: 1.5,
-        borderColor: '#385fc3',
+        borderColor: Colors.primary,
         margin: pixelSizeVertical(5),
         borderRadius: 20,
         padding: pixelSizeHorizontal(10),
     },
 
     edtBtnTxt: {
-        color: '#385fc3',
+        color: Colors.primary,
         textAlign: "center"
     },
 
