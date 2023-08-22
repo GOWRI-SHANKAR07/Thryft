@@ -1,5 +1,5 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import HomeScreen from '../Screens/HomeScreen';
 import MessageScreen from '../Screens/MessageScreen';
@@ -9,15 +9,34 @@ import ProfileScreen from '../Screens/ProfileScreen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useColorSchemeContext } from '../Theme/ColorTheme';
 import SellScreen from '../Screens/SellScreen';
-import { useNavigationState } from '@react-navigation/native';
+import { useAppContext } from '../Context/ContextProvider';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+
 
 // creating Bottom Tab
 const Tab = createBottomTabNavigator();
 
-const TabScreens = () => {
+const TabScreens = ({ route }) => {
 
   // colorscheme for dark / light
   const { colorScheme } = useColorSchemeContext();
+
+  // profile context
+  const { profile, setProfile } = useAppContext();
+
+
+  // retrieving the current route name
+  const focusedRouteName = getFocusedRouteNameFromRoute(route);
+  console.log(focusedRouteName);
+
+  // Set profile context based on focused route
+  useEffect(() => {
+    if (focusedRouteName === 'Profile') {
+      setProfile(true);
+    } else {
+      setProfile(false);
+    }
+  }, [focusedRouteName, profile]);
 
 
 
@@ -33,31 +52,44 @@ const TabScreens = () => {
         tabBarInactiveTintColor: 'lightgray',
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
-          if (route.name === 'Home') {
-            iconName = focused
-              ? 'home'
-              : 'home-outline';
-          } else if (route.name === 'Message') {
-            iconName = focused
-              ? 'message'
-              : 'message-outline';
-          } else if (route.name === 'Catlog') {
-            iconName = focused
-              ? 'shopping'
-              : 'shopping-outline';
-          } else if (route.name === 'Sell') {
-            iconName = focused
-              ? 'plus-circle'
-              : 'plus-circle-outline';
-          } else if (route.name === 'Order') {
-            iconName = focused
-              ? 'cart'
-              : 'cart-outline';
-          } else if (route.name === 'Profile') {
-            iconName = focused
-              ? 'account'
-              : 'account-outline';
+          switch (route.name) {
+            case 'Home':
+              iconName = focused
+                ? 'home'
+                : 'home-outline';
+              break;
+
+            case 'Message':
+              iconName = focused
+                ? 'message'
+                : 'message-outline';
+              break;
+
+            case 'Catalog':
+              iconName = focused
+                ? 'shopping'
+                : 'shopping-outline';
+              break;
+
+            case 'Sell':
+              iconName = focused
+                ? 'plus-circle'
+                : 'plus-circle-outline';
+              break;
+
+            case 'Order':
+              iconName = focused
+                ? 'cart'
+                : 'cart-outline';
+              break;
+
+            case 'Profile':
+              iconName = focused
+                ? 'account'
+                : 'account-outline';
+              break;
           }
+
           return (
             <MaterialCommunityIcons
               name={iconName}
@@ -67,16 +99,21 @@ const TabScreens = () => {
           );
         }
       })}
-      initialRouteName='Catlog'
+      initialRouteName='Home'
     >
       <Tab.Screen name='Home' component={HomeScreen} />
       <Tab.Screen name='Message' component={MessageScreen} />
-      <Tab.Screen name='Catlog' component={CatlogScreen} />
-      <Tab.Screen name='Sell' component={SellScreen} />
+      {
+        profile ? (
+          <Tab.Screen name='Sell' component={SellScreen} />
+        ) : (
+          <Tab.Screen name='Catalog' component={CatlogScreen} />
+        )
+      }
       <Tab.Screen name='Order' component={OrderScreen} />
       <Tab.Screen name='Profile' component={ProfileScreen} />
-    </Tab.Navigator>
+    </Tab.Navigator >
   )
 }
 
-export default TabScreens
+export default TabScreens;
