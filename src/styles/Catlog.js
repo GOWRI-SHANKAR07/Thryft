@@ -31,13 +31,6 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
 
-    imgCont: {
-        width: widthPixel(60),
-        height: heightPixel(60),
-        borderRadius: 30,
-        marginRight: pixelSizeHorizontal(20),
-    },
-
     menu: {
         color: Colors.white,
         marginRight: pixelSizeHorizontal(10),
@@ -73,12 +66,16 @@ const styles = StyleSheet.create({
 
     lstCont: {
         width: widthPixel(360),
-        alignSelf: "center"
+        alignSelf: "center",
+        flexDirection: 'column',
+        flexWrap: 'nowrap',
     },
 
     active: {
-        right: pixelSizeHorizontal(35),
+        right: pixelSizeHorizontal(18),
         top: pixelSizeVertical(18),
+        borderWidth: 1,
+        borderColor: '#ffffff00',
     }
 })
 

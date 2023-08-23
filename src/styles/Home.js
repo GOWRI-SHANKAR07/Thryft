@@ -1,3 +1,5 @@
+import { Montserrat_500Medium } from "@expo-google-fonts/montserrat";
+
 const { StyleSheet } = require("react-native");
 const { Colors, heightPixel, pixelSizeVertical, pixelSizeHorizontal, widthPixel, fontPixel } = require("../Constants/Theme");
 
@@ -28,20 +30,21 @@ const styles = StyleSheet.create({
     headerTxt: {
         color: '#fff',
         paddingLeft: pixelSizeHorizontal(10),
+        fontFamily: Montserrat_500Medium,
         fontSize: fontPixel(20),
     },
 
     imgCont: {
-        width: widthPixel(60),
-        height: heightPixel(60),
-        borderRadius: 30,
-        bottom: pixelSizeVertical(12),
-        left: pixelSizeHorizontal(80)
+        flexDirection: 'row',
+        marginRight: pixelSizeHorizontal(10),
     },
 
     active: {
-        right: pixelSizeHorizontal(23),
-        top: pixelSizeVertical(25),
+        right: pixelSizeHorizontal(15),
+        top: pixelSizeVertical(28),
+        paddingRight: pixelSizeHorizontal(10),
+        borderWidth: 1,
+        borderColor: '#ffffff00'
     },
 
     sellerCont: {

@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-const { Colors, heightPixel, pixelSizeVertical, pixelSizeHorizontal, widthPixel, fontPixel } = require("../Constants/Theme");
+const { Colors, heightPixel, pixelSizeVertical, pixelSizeHorizontal, widthPixel, fontPixel, Fonts } = require("../Constants/Theme");
 
 const styles = StyleSheet.create({
     container: {
