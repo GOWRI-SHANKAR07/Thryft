@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "column",
         width: widthPixel(190),
-        marginTop: pixelSizeVertical(10)
+        marginTop: pixelSizeVertical(10),
     },
 
     prdImg: {
