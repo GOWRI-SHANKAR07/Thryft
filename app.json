@@ -12,8 +12,15 @@
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
-      "**/*"
+      "assets/*"
     ],
+    "extra": {
+      "fontAssets": [
+        "./assets/fonts/Montserrat-Medium.ttf",
+        "./assets/fonts/Montserrat-Bold.ttf",
+        "./assets/fonts/Montserrat-SemiBold.ttf"
+      ]
+    },
     "ios": {
       "supportsTablet": true
     },
