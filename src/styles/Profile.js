@@ -37,13 +37,15 @@ const styles = StyleSheet.create({
     imgCont: {
         width: widthPixel(60),
         height: heightPixel(60),
-        borderRadius: 30,
+        borderRadius: 60,
         marginRight: pixelSizeHorizontal(20),
     },
 
     active: {
-        right: pixelSizeHorizontal(35),
+        right: pixelSizeHorizontal(18),
         top: pixelSizeVertical(20),
+        borderWidth: 1,
+        borderColor: '#ffffff00',
     },
 
     prfHeadCont: {
@@ -72,13 +74,20 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: "space-between",
         alignItems: "center",
-        padding: pixelSizeHorizontal(10),
+        paddingLeft: pixelSizeHorizontal(10),
+        paddingRight: pixelSizeHorizontal(10)
+    },
+
+    enableBtn: {
+        justifyContent: "center",
+        alignItems: "center",
     },
 
     switch: {
         borderWidth: 1,
-        borderColor: '#fff',
-        paddingRight: pixelSizeHorizontal(5),
+        borderColor: '#ffffff00',
+        top: pixelSizeVertical(3),
+        paddingRight: pixelSizeHorizontal(5)
     },
 
     compCont: {
