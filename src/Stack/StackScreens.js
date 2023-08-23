@@ -12,23 +12,19 @@ const Stack = createNativeStackNavigator();
 
 const StackScreens = () => {
     return (
-        <>
-            <SafeAreaView style={{ flex: 1 }}>
-                <ContextProvider>
-                    <ColorSchemeProvider>
-                        <NavigationContainer>
-                            <Stack.Navigator
-                                screenOptions={{
-                                    headerShown: false
-                                }}
-                            >
-                                <Stack.Screen name='Tab' component={TabScreens} />
-                            </Stack.Navigator>
-                        </NavigationContainer>
-                    </ColorSchemeProvider>
-                </ContextProvider>
-            </SafeAreaView>
-        </>
+            <ContextProvider>
+                <ColorSchemeProvider>
+                    <NavigationContainer>
+                        <Stack.Navigator
+                            screenOptions={{
+                                headerShown: false
+                            }}
+                        >
+                            <Stack.Screen name='Tab' component={TabScreens} />
+                        </Stack.Navigator>
+                    </NavigationContainer>
+                </ColorSchemeProvider>
+            </ContextProvider>
     )
 }
 
