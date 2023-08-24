@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 
     headerCont: {
         backgroundColor: '#121a14',
-        height: heightPixel(670),
+        height: heightPixel(650),
         padding: pixelSizeHorizontal(10),
 
     },
@@ -21,17 +21,16 @@ const styles = StyleSheet.create({
     headerRgtCont: {
         flexDirection: 'row',
         justifyContent: "space-between",
-        alignItems: "flex-start",
+        alignItems: "center",
         paddingTop: pixelSizeVertical(20),
         paddingLeft: pixelSizeHorizontal(10),
-        marginTop: pixelSizeVertical(40),
     },
 
     headerTxt: {
         color: '#fff',
         paddingLeft: pixelSizeHorizontal(10),
-        fontFamily: Montserrat_500Medium,
         fontSize: fontPixel(20),
+        fontFamily: 'Montserrat-Bold'
     },
 
     imgCont: {
@@ -56,7 +55,8 @@ const styles = StyleSheet.create({
 
     sellerTxt: {
         color: Colors.white,
-        fontSize: fontPixel(18)
+        fontSize: fontPixel(18),
+        fontFamily: 'Montserrat-Bold'
     },
 
     innerCont: {
@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
     statTxt: {
         color: Colors.white,
         paddingBottom: pixelSizeVertical(10),
+        fontFamily: 'Montserrat-Medium'
     },
 
     bar: {
@@ -108,6 +109,7 @@ const styles = StyleSheet.create({
     nxtLvlTxt: {
         color: Colors.white,
         fontSize: fontPixel(18),
+        fontFamily: 'Montserrat-Bold'
     },
 
     statusCont: {
@@ -123,11 +125,12 @@ const styles = StyleSheet.create({
         // borderColor: '#fff',
         width: widthPixel(280),
         marginLeft: pixelSizeHorizontal(20),
-        marginBottom: pixelSizeVertical(20)
+        marginBottom: pixelSizeVertical(20),
     },
 
     statusTxt: {
         color: Colors.white,
+        fontFamily: 'Montserrat-Medium'
     },
 
     completionRate: {
@@ -142,7 +145,8 @@ const styles = StyleSheet.create({
     },
 
     rateTxt: {
-        color: Colors.green
+        color: Colors.green.replace,
+        fontFamily: 'Montserrat-Medium'
     },
 
     rateBar: {
@@ -174,6 +178,10 @@ const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
 
+    ernTxt: {
+        fontFamily: 'Montserrat-Bold'
+    },
+
     dtlBtn: {
         flexDirection: 'row',
         alignItems: "center",
@@ -184,14 +192,14 @@ const styles = StyleSheet.create({
     amountCont: {
         borderWidth: 1,
         borderColor: Colors.grey,
-        marginTop: pixelSizeHorizontal(20),
         height: heightPixel(200),
         borderRadius: 10,
         flexDirection: "row",
         flexWrap: "wrap",
         justifyContent: "space-between",
         alignContent: "center",
-        padding: pixelSizeHorizontal(10)
+        padding: pixelSizeHorizontal(10),
+        paddingBottom: pixelSizeVertical(25),
     },
 
     amtTxtCont: {
@@ -200,12 +208,14 @@ const styles = StyleSheet.create({
     },
 
     amtDescTxt: {
-        fontSize: fontPixel(14)
+        fontSize: fontPixel(14),
+        fontFamily: 'Montserrat-SemiBold',
     },
 
     amtTxt: {
         color: Colors.primary,
-        paddingTop: pixelSizeVertical(10)
+        paddingTop: pixelSizeVertical(10),
+        fontFamily: 'Montserrat-Medium',  
     }
 })
 

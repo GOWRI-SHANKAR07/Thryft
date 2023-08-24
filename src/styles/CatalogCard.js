@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 
     condCont: {
         backgroundColor: Colors.greyMessage,
-        width: widthPixel(125),
+        width: widthPixel(140),
         flexDirection: "row",
         padding: pixelSizeHorizontal(5),
         marginTop: pixelSizeVertical(5),
@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     condTxt: {
         fontSize: fontPixel(13),
         color: Colors.primary,
+        fontFamily: 'Montserrat-Medium',
     },
 
     titleCont: {
@@ -46,7 +47,8 @@ const styles = StyleSheet.create({
 
     titleTxt: {
         fontWeight: '900',
-        color: Colors.black
+        color: Colors.black,
+        fontFamily: 'Montserrat-SemiBold',
     },
 
     edtBtn: {
@@ -59,7 +61,8 @@ const styles = StyleSheet.create({
 
     edtBtnTxt: {
         color: Colors.primary,
-        textAlign: "center"
+        textAlign: "center",
+        fontFamily: 'Montserrat-SemiBold',
     },
 
 

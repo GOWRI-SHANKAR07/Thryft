@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
         paddingTop: pixelSizeVertical(50),
         paddingLeft: pixelSizeHorizontal(20),
         fontSize: 20,
+        fontFamily: 'Montserrat-Bold',
     },
 
     headerRgtCont: {
@@ -56,7 +57,8 @@ const styles = StyleSheet.create({
 
     prfHeadTxt: {
         color: Colors.white,
-        right: pixelSizeHorizontal(10)
+        right: pixelSizeHorizontal(10),
+        fontFamily: 'Montserrat-Bold',
     },
 
     modeCont: {
@@ -112,6 +114,7 @@ const styles = StyleSheet.create({
 
     profileTxt: {
         paddingLeft: pixelSizeHorizontal(10),
+        fontFamily: 'Montserrat-Medium',
     },
 
     divLine: {

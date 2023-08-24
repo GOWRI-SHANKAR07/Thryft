@@ -25,7 +25,7 @@ const CatalogCard = ({ items }) => {
                 </View>
                 <View style={styles.titleCont}>
                     <Text style={styles.titleTxt}>{items.title}</Text>
-                    <Text> {items.size}</Text>
+                    <Text style={styles.titleTxt}> {items.size}</Text>
                 </View>
                 <Text>{items.idr}</Text>
             </View>

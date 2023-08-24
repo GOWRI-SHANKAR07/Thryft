@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
         paddingTop: pixelSizeVertical(50),
         paddingLeft: pixelSizeHorizontal(20),
         fontSize: 20,
+        fontFamily: 'Montserrat-Bold',
     },
 
     headerRgtCont: {
@@ -51,7 +52,8 @@ const styles = StyleSheet.create({
         color: Colors.white,
         width: widthPixel(210),
         textAlign: "center",
-        fontSize: 15
+        fontSize: 15,
+        fontFamily: 'Montserrat-SemiBold',
     },
 
     sellBtn: {
