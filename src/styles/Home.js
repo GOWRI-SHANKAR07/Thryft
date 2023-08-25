@@ -210,6 +210,8 @@ const styles = StyleSheet.create({
     amtDescTxt: {
         fontSize: fontPixel(14),
         fontFamily: 'Montserrat-SemiBold',
+        height: heightPixel(40),
+        width: widthPixel(150)
     },
 
     amtTxt: {
