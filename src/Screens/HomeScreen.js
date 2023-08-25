@@ -83,7 +83,7 @@ const HomeScreen = () => {
             <Text style={[styles.statusTxt, { color: Colors.greyDark, paddingTop: pixelSizeVertical(10) }]}>Complete at least 60 day as a Level 1 Seller (all time)</Text>
           </View>
           <View style={styles.completionRate}>
-            <Text style={styles.rateTxt}>60/60</Text>
+            <Text style={[styles.rateTxt, { color: Colors.green }]}>60/60</Text>
             <View style={styles.rateBar}></View>
           </View>
         </View>
