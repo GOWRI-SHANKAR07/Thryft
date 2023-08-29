@@ -11,6 +11,7 @@ import { useColorSchemeContext } from '../Theme/ColorTheme';
 import SellScreen from '../Screens/SellScreen';
 import { useAppContext } from '../Context/ContextProvider';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import CameraScreen from '../Screens/CameraScreen';
 
 
 // creating Bottom Tab
@@ -61,8 +62,8 @@ const TabScreens = ({ route }) => {
 
             case 'Message':
               iconName = focused
-                ? 'message'
-                : 'message-outline';
+                ? 'camera'
+                : 'camera-outline';
               break;
 
             case 'Catalog':
@@ -99,10 +100,10 @@ const TabScreens = ({ route }) => {
           );
         }
       })}
-      initialRouteName='Home'
+      initialRouteName='Message'
     >
       <Tab.Screen name='Home' component={HomeScreen} />
-      <Tab.Screen name='Message' component={MessageScreen} />
+      <Tab.Screen name='Camera' component={CameraScreen} />
       {
         profile ? (
           <Tab.Screen name='Sell' component={SellScreen} />

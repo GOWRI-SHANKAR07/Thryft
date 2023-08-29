@@ -35,10 +35,10 @@ const StackScreens = () => {
                         screenOptions={{
                             headerShown: false
                         }}
-                        initialRouteName={'Login'}
+                        initialRouteName='Tab'
                     >
-                        <Stack.Screen name='Login' component={LoginScreen} />
-                        <Stack.Screen name='Tab' component={TabScreens} />
+                            <Stack.Screen name='Tab' component={TabScreens} />
+                            <Stack.Screen name='Login' component={LoginScreen} />
                     </Stack.Navigator>
                 </NavigationContainer>
             </ColorSchemeProvider>
