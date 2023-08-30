@@ -22,7 +22,7 @@ const HomeScreen = () => {
         console.log(imageUri, "ImageUri");
       }
     })();
-  }, []);
+  }, []); 
    
 
   return (
