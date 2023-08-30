@@ -21,19 +21,28 @@ const ProfileScreen = () => {
   const [isPreview, setIsPreview] = useState(null);
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [previewImg, setPreviewImg] = useState(null);
+  const [image, setImage] = useState();
 
   // image upload context
   const { permissionGranted, setPermissionGranted, imageUri, setImageUri, img } = useAppContext();
 
   useEffect(() => {
-      const grantedPermission = AsyncStorage.getItem('permission');
-      console.log(grantedPermission, "Granted permission");
-      if (grantedPermission) {
-        setPermissionGranted(true);
-        console.log(permissionGranted, "Premission Granted");
-      }
-  
-  }, [permissionGranted]);
+    const grantedPermission = AsyncStorage.getItem('permission');
+    console.log(grantedPermission, "Granted permission");
+    if (grantedPermission) {
+      setPermissionGranted(true);
+      console.log(permissionGranted, "Premission Granted");
+    }
+
+    (async () => {
+      const storedImageUri = await AsyncStorage.getItem('profileImage');
+      if (storedImageUri) {
+        setImageUri(storedImageUri);
+        console.log(imageUri, "ImageUri");
+      } 
+    })();
+
+  }, [permissionGranted, image]);
 
   // camera reference
   const cameraRef = useRef();
@@ -127,7 +136,7 @@ const ProfileScreen = () => {
   const storeImageUri = async (uri) => {
     try {
       await AsyncStorage.setItem('profileImage', uri);
-      console.log();
+      setImage('Image set')
     } catch (error) {
       console.error('Error storing image URI:', error);
     }
