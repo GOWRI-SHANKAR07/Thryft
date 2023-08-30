@@ -12,6 +12,7 @@ import { Avatar } from 'react-native-elements';
 import { useAppContext } from '../Context/ContextProvider';
 import * as ImagePicker from 'expo-image-picker';
 import { Camera } from 'expo-camera';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const ProfileScreen = () => {
@@ -24,6 +25,16 @@ const ProfileScreen = () => {
   // image upload context
   const { permissionGranted, setPermissionGranted, imageUri, setImageUri, img } = useAppContext();
 
+  useEffect(() => {
+      const grantedPermission = AsyncStorage.getItem('permission');
+      console.log(grantedPermission, "Granted permission");
+      if (grantedPermission) {
+        setPermissionGranted(true);
+        console.log(permissionGranted, "Premission Granted");
+      }
+  
+  }, [permissionGranted]);
+
   // camera reference
   const cameraRef = useRef();
 
@@ -31,6 +42,8 @@ const ProfileScreen = () => {
   const onHandlePermission = async () => {
     const { status } = await Camera.requestCameraPermissionsAsync();
     setPermissionGranted(status === 'granted');
+    const permission = JSON.stringify(permissionGranted)
+    await AsyncStorage.setItem('premission', permission);
   };
 
   // user permission invoke to access camera & gallery
@@ -91,7 +104,7 @@ const ProfileScreen = () => {
   const okPreview = async () => {
     await cameraRef.current.resumePreview();
     setIsPreview(false);
-    setImageUri(previewImg);
+    storeImageUri(previewImg);
     setIsCameraReady(false);
     console.log(isCameraReady);
   }
@@ -106,9 +119,20 @@ const ProfileScreen = () => {
     });
 
     if (!result.canceled) {
-      setImageUri(result.assets[0].uri);
+      storeImageUri(result.assets[0].uri);
     }
   };
+
+  // Storing image URI in AsyncStorage
+  const storeImageUri = async (uri) => {
+    try {
+      await AsyncStorage.setItem('profileImage', uri);
+      console.log();
+    } catch (error) {
+      console.error('Error storing image URI:', error);
+    }
+  };
+
 
   // alert to choose the image source
   const chooseImageSource = () => {
@@ -124,13 +148,10 @@ const ProfileScreen = () => {
     );
   };
 
-
-
   // enable & disable switch
   const toggleButton = () => {
     setIsEnabled(prevState => !prevState)
   }
-
 
   return (
     <View style={styles.container}>
