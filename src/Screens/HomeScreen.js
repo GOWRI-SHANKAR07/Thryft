@@ -1,5 +1,5 @@
 import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { styles } from '../styles/Home'
 import { AntDesign } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
@@ -7,11 +7,23 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { Colors, pixelSizeVertical, widthPixel } from '../Constants/Theme';
 import { Avatar } from 'react-native-elements'
 import { useAppContext } from '../Context/ContextProvider';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomeScreen = () => {
 
    // image upload context
-   const { img, imageUri } = useAppContext();
+   const { img, imageUri, setImageUri } = useAppContext();
+
+   useEffect(() => {
+    (async () => {
+      const storedImageUri = await AsyncStorage.getItem('profileImage');
+      if (storedImageUri) {
+        setImageUri(storedImageUri);
+        console.log(imageUri, "ImageUri");
+      }
+    })();
+  }, []);
+   
 
   return (
     <View style={styles.headerCont}>
