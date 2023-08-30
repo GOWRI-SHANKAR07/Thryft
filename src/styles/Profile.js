@@ -1,5 +1,8 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 const { Colors, heightPixel, pixelSizeVertical, pixelSizeHorizontal, widthPixel, fontPixel, Fonts } = require("../Constants/Theme");
+
+const WINDOW_HEIGHT = Dimensions.get('window').height;
+const CAPTURE_SIZE = Math.floor(WINDOW_HEIGHT * 0.08);
 
 const styles = StyleSheet.create({
     container: {
@@ -122,6 +125,53 @@ const styles = StyleSheet.create({
         borderTopWidth: 1,
         borderColor: Colors.greyMessage,
         alignSelf: "center"
+    },
+    cameraContainer: {
+        backgroundColor: '#fff'
+    },
+    text: {
+        color: '#fff'
+    },
+    bottomButtonsContainer: {
+        position: 'absolute',
+        flexDirection: 'row',
+        bottom: 28,
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    openButton: {
+        position: 'absolute',
+        top: 100,
+        right: 20,
+        height: 50,
+        width: 50,
+        borderRadius: 25,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#5A45FF',
+        opacity: 0.7
+    },
+    closeButton: {
+        position: 'absolute',
+        top: 35,
+        right: 20,
+        height: 50,
+        width: 50,
+        borderRadius: 25,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#5A45FF',
+        opacity: 0.7
+    },
+    capture: {
+        backgroundColor: '#5A45FF',
+        borderRadius: 5,
+        height: CAPTURE_SIZE,
+        width: CAPTURE_SIZE,
+        borderRadius: Math.floor(CAPTURE_SIZE / 2),
+        marginBottom: 28,
+        marginHorizontal: 30
     }
 })
 
