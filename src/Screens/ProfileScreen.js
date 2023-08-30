@@ -1,6 +1,7 @@
-import { View, Text, Image, TouchableOpacity, FlatList, PermissionsAndroid, ToastAndroid, Alert } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { View, Text, Image, TouchableOpacity, FlatList, PermissionsAndroid, ToastAndroid, Alert, } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
 import { styles } from '../styles/Profile'
+import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { Fontisto } from '@expo/vector-icons';
@@ -10,31 +11,92 @@ import ProfileList from '../Components/ProfileList';
 import { Avatar } from 'react-native-elements';
 import { useAppContext } from '../Context/ContextProvider';
 import * as ImagePicker from 'expo-image-picker';
-import { Camera, CameraType } from 'expo-camera';
+import { Camera } from 'expo-camera';
 
 
 const ProfileScreen = () => {
   const [isEnabled, setIsEnabled] = useState(false)
-  const [camera, setCamera] = useState(null);
+  const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
+  const [isPreview, setIsPreview] = useState(null);
+  const [isCameraReady, setIsCameraReady] = useState(false);
+  const [previewImg, setPreviewImg] = useState(null);
+
   // image upload context
   const { permissionGranted, setPermissionGranted, imageUri, setImageUri, img } = useAppContext();
 
-  useEffect(() => {
-    (async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync();
-      setPermissionGranted(status === 'granted');
-    })();
-  }, [])
+  // camera reference
+  const cameraRef = useRef();
 
-  const takePicture = async () => {
-    setCamera(true); 
-    console.log("clicked");
-    if(permissionGranted) {
-      const photo = await Camera.takePictureAsync();
-      setImageUri(photo.uri);
-    }  
-  }; 
+  // handling camera & gallery permissions
+  const onHandlePermission = async () => {
+    const { status } = await Camera.requestCameraPermissionsAsync();
+    setPermissionGranted(status === 'granted');
+  };
 
+  // user permission invoke to access camera & gallery
+  const userPermission = () => {
+    Alert.alert(
+      'Permission',
+      'Allow Thryft to take picture & access',
+      [
+        { text: 'Allow', onPress: onHandlePermission },
+        { text: 'Deny', onPress: setPermissionGranted(false) },
+        { text: 'Cancel', style: 'cancel' },
+      ],
+      { cancelable: true }
+    );
+  };
+
+  // handling opening the camera
+  const openCamera = () => {
+    setIsCameraReady(true);
+  };
+
+  // handling front & back camera swtich
+  const switchCamera = () => {
+    if (isPreview) {
+      return;
+    }
+    setCameraType(prevCameraType =>
+      prevCameraType === Camera.Constants.Type.back
+        ? Camera.Constants.Type.front
+        : Camera.Constants.Type.back
+    );
+  };
+
+  // Taking Photo using camera handled
+  const onSnap = async () => {
+    console.log(cameraRef.current);
+    if (cameraRef.current) {
+      const options = { quality: 0.7, };
+      const data = await cameraRef.current.takePictureAsync(options);
+      const source = data.uri;
+      setPreviewImg(source);
+
+      if (source) {
+        await cameraRef.current.pausePreview();
+        setIsPreview(true);
+      }
+    }
+  };
+
+  // canceling the pic snaped
+  const cancelPreview = async () => {
+    await cameraRef.current.resumePreview();
+    setIsPreview(false);
+    setPreviewImg('');
+  };
+
+  // selecting the pic snaped to set as DP
+  const okPreview = async () => {
+    await cameraRef.current.resumePreview();
+    setIsPreview(false);
+    setImageUri(previewImg);
+    setIsCameraReady(false);
+    console.log(isCameraReady);
+  }
+
+  // handling opening the gallery to accesss the photos
   const openGallery = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -44,16 +106,17 @@ const ProfileScreen = () => {
     });
 
     if (!result.canceled) {
-      setImageUri(result.uri);
+      setImageUri(result.assets[0].uri);
     }
   };
 
+  // alert to choose the image source
   const chooseImageSource = () => {
     Alert.alert(
       'Choose Image Source',
       'Select an option to set your profile picture',
       [
-        { text: 'Camera', onPress: takePicture },
+        { text: 'Camera', onPress: openCamera },
         { text: 'Gallery', onPress: openGallery },
         { text: 'Cancel', style: 'cancel' },
       ],
@@ -68,17 +131,25 @@ const ProfileScreen = () => {
     setIsEnabled(prevState => !prevState)
   }
 
+
   return (
     <View style={styles.container}>
-      {camera ?
-        (<Camera style={{ height: '50%', marginTop: 30 }} type={Camera.Constants.Type.back} ref={ref => setCamera(ref)} />)
+      {isCameraReady ?
+        (
+          <Camera
+            ref={cameraRef}
+            style={styles.container}
+            type={cameraType}
+            useCamera2Api={true}
+          />
+        )
         :
         (
           <>
             <View style={styles.headerCont}>
               <View style={styles.prfHeadCont}>
-                <TouchableOpacity onPress={chooseImageSource}>
-                  <Avatar 
+                <TouchableOpacity onPress={permissionGranted ? chooseImageSource : userPermission}>
+                  <Avatar
                     rounded
                     size={'medium'}
                     source={{ uri: imageUri ? imageUri : img }}
@@ -132,6 +203,37 @@ const ProfileScreen = () => {
           </>
         )
       }
+      {isPreview && (
+        <>
+          <TouchableOpacity
+            onPress={cancelPreview}
+            style={styles.closeButton}
+            activeOpacity={0.7}
+          >
+            <AntDesign name='close' size={32} color='#fff' />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={okPreview}
+            style={styles.openButton}
+            activeOpacity={0.7}
+          >
+            <AntDesign name='check' size={32} color='#fff' />
+          </TouchableOpacity>
+        </>
+      )}
+      {!isPreview && isCameraReady && (
+        <View style={styles.bottomButtonsContainer}>
+          <TouchableOpacity disabled={!isCameraReady} onPress={switchCamera}>
+            <MaterialIcons name='flip-camera-ios' size={28} color='white' />
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            disabled={!isCameraReady}
+            onPress={onSnap}
+            style={styles.capture}
+          />
+        </View>
+      )}
     </View>
   )
 }
