@@ -12,10 +12,12 @@ import SellScreen from '../Screens/SellScreen';
 import { useAppContext } from '../Context/ContextProvider';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import CameraScreen from '../Screens/CameraScreen';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { Colors, fontPixel, widthPixel } from '../Constants/Theme';
 
 
 // creating Bottom Tab
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialTopTabNavigator();
 
 const TabScreens = ({ route }) => {
 
@@ -44,13 +46,11 @@ const TabScreens = ({ route }) => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        headerShown: false,
-        headerStyle: { backgroundColor: '#00A8E8' },
-        headerTintColor: '#fff',
-        headerTitleStyle: { fontWeight: 'bold' },
-        tabBarStyle: { backgroundColor: colorScheme === 'dark' ? '#000' : '#fff', borderBlockColor: colorScheme === 'dark' ? '#000' : 'lightgray', },
+        tabBarStyle: { backgroundColor: colorScheme === 'dark' ? '#000' : '#fff', borderBlockColor: colorScheme === 'dark' ? '#000' : 'lightgray', borderTopLeftRadius: 30, borderTopRightRadius: 30, borderTopColor: Colors.greyBorder },
+        tabBarLabelStyle: { fontSize: fontPixel(10), },
         tabBarActiveTintColor: colorScheme === 'dark' ? '#fff' : '#00A8E8',
         tabBarInactiveTintColor: 'lightgray',
+        tabBarPressColor: '#ffffff00',
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
           switch (route.name) {
@@ -62,8 +62,8 @@ const TabScreens = ({ route }) => {
 
             case 'Message':
               iconName = focused
-                ? 'camera'
-                : 'camera-outline';
+                ? 'chat'
+                : 'chat-outline';
               break;
 
             case 'Catalog':
@@ -94,16 +94,17 @@ const TabScreens = ({ route }) => {
           return (
             <MaterialCommunityIcons
               name={iconName}
-              size={size}
+              size={widthPixel(25)}
               color={color}
             />
           );
         }
       })}
-      initialRouteName='Message'
+      initialRouteName='Home'
+      tabBarPosition='bottom'
     >
       <Tab.Screen name='Home' component={HomeScreen} />
-      <Tab.Screen name='Camera' component={CameraScreen} />
+      <Tab.Screen name='Message' component={MessageScreen} />
       {
         profile ? (
           <Tab.Screen name='Sell' component={SellScreen} />
