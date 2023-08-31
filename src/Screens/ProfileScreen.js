@@ -5,11 +5,11 @@ import { AntDesign, MaterialIcons, Octicons, Entypo, Fontisto } from '@expo/vect
 import { Colors, fontPixel, pixelSizeHorizontal, pixelSizeVertical } from '../Constants/Theme';
 import { ProfileDataCont1, ProfileDataCont2, ProfileDataCont3 } from '../Data/ProfileData';
 import ProfileList from '../Components/ProfileList';
-import { Avatar } from 'react-native-elements';
 import { useAppContext } from '../Context/ContextProvider';
 import * as ImagePicker from 'expo-image-picker';
 import { Camera, getCameraPermissionsAsync } from 'expo-camera';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Avatar from '../Components/Avatar';
 
 
 const ProfileScreen = () => {
@@ -193,11 +193,7 @@ const ProfileScreen = () => {
             <View style={styles.headerCont}>
               <View style={styles.prfHeadCont}>
                 <TouchableOpacity onPress={permissionGranted ? chooseImageSource : userPermission}>
-                  <Avatar
-                    rounded
-                    size={'medium'}
-                    source={{ uri: imageUri ? imageUri : img }}
-                  />
+                  <Avatar />
                 </TouchableOpacity>
                 <Octicons
                   name="dot-fill"

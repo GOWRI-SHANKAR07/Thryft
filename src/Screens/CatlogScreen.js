@@ -5,26 +5,17 @@ import { Entypo } from '@expo/vector-icons';
 import { data } from '../Data/CatalogData';
 import CatalogCard from '../Components/CatalogCard';
 import { Octicons } from '@expo/vector-icons';
-import { Avatar } from 'react-native-elements'
 import { useAppContext } from '../Context/ContextProvider';
+import Avatar from '../Components/Avatar';
 
 const CatlogScreen = () => {
-
-  // image upload context
-  const { imageUri, img } = useAppContext();
 
   return (
     <View style={styles.container}>
       <View style={styles.headerCont}>
         <Text style={styles.headerTxt}>Catlog</Text>
         <View style={styles.headerRgtCont}>
-          <Avatar
-            rounded
-            size={'medium'}
-            source={{
-              uri: imageUri ? imageUri : img
-            }}
-          />
+          <Avatar />
           <Octicons
             name="dot-fill"
             size={24}

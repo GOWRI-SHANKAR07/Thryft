@@ -5,37 +5,31 @@ import { AntDesign } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Colors, pixelSizeVertical, widthPixel } from '../Constants/Theme';
-import { Avatar } from 'react-native-elements'
 import { useAppContext } from '../Context/ContextProvider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Avatar from '../Components/Avatar';
 
 const HomeScreen = () => {
 
-   // image upload context
-   const { img, imageUri, setImageUri } = useAppContext();
+  // image upload context
+  const { img, imageUri, setImageUri } = useAppContext();
 
-   useEffect(() => {
+  useEffect(() => {
     (async () => {
       const storedImageUri = await AsyncStorage.getItem('profileImage');
       if (storedImageUri) {
         setImageUri(storedImageUri);
       }
     })();
-  }, []); 
-   
+  }, []);
+
 
   return (
     <View style={styles.headerCont}>
       <View style={styles.headerRgtCont}>
         <Text style={styles.headerTxt}>Hello</Text>
         <View style={styles.imgCont}>
-          <Avatar
-            rounded
-            size={'medium'}
-            source={{
-              uri: imageUri ? imageUri : img
-            }}
-          />
+          <Avatar />
           <Octicons
             name="dot-fill"
             size={24}
