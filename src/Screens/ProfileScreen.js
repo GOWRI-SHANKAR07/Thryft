@@ -1,58 +1,56 @@
 import { View, Text, Image, TouchableOpacity, FlatList, PermissionsAndroid, ToastAndroid, Alert, } from 'react-native'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { styles } from '../styles/Profile'
-import { AntDesign, MaterialIcons } from '@expo/vector-icons';
-import { Octicons } from '@expo/vector-icons';
-import { Entypo } from '@expo/vector-icons';
-import { Fontisto } from '@expo/vector-icons';
+import { AntDesign, MaterialIcons, Octicons, Entypo, Fontisto } from '@expo/vector-icons';
 import { Colors, fontPixel, pixelSizeHorizontal, pixelSizeVertical } from '../Constants/Theme';
 import { ProfileDataCont1, ProfileDataCont2, ProfileDataCont3 } from '../Data/ProfileData';
 import ProfileList from '../Components/ProfileList';
 import { Avatar } from 'react-native-elements';
 import { useAppContext } from '../Context/ContextProvider';
 import * as ImagePicker from 'expo-image-picker';
-import { Camera } from 'expo-camera';
+import { Camera, getCameraPermissionsAsync } from 'expo-camera';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const ProfileScreen = () => {
-  const [isEnabled, setIsEnabled] = useState(false)
+  const [isEnabled, setIsEnabled] = useState(false);
   const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
   const [isPreview, setIsPreview] = useState(null);
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [previewImg, setPreviewImg] = useState(null);
-  const [image, setImage] = useState();
 
   // image upload context
   const { permissionGranted, setPermissionGranted, imageUri, setImageUri, img } = useAppContext();
 
   useEffect(() => {
-    const grantedPermission = AsyncStorage.getItem('permission');
-    console.log(grantedPermission, "Granted permission");
-    if (grantedPermission) {
-      setPermissionGranted(true);
-      console.log(permissionGranted, "Premission Granted");
+    // check whether the camera permission is granted
+    const checkPermission = async () => {
+      const { status } = await getCameraPermissionsAsync();
+      setPermissionGranted(status === 'granted');
     }
+
+    checkPermission();
 
     (async () => {
       const storedImageUri = await AsyncStorage.getItem('profileImage');
       if (storedImageUri) {
         setImageUri(storedImageUri);
-        console.log(imageUri, "ImageUri");
-      } 
+      }
     })();
 
-  }, [permissionGranted, image]);
+  }, [permissionGranted, imageUri]);
 
   // camera reference
   const cameraRef = useRef();
 
   // handling camera & gallery permissions
-  const onHandlePermission = async () => {
+  const requestPermission = async () => {
     const { status } = await Camera.requestCameraPermissionsAsync();
     setPermissionGranted(status === 'granted');
-    const permission = JSON.stringify(permissionGranted)
-    await AsyncStorage.setItem('premission', permission);
+
+    if (status !== 'granted') {
+      Alert.alert("Permission Denied");
+    }
   };
 
   // user permission invoke to access camera & gallery
@@ -61,7 +59,7 @@ const ProfileScreen = () => {
       'Permission',
       'Allow Thryft to take picture & access',
       [
-        { text: 'Allow', onPress: onHandlePermission },
+        { text: 'Allow', onPress: requestPermission },
         { text: 'Deny', onPress: setPermissionGranted(false) },
         { text: 'Cancel', style: 'cancel' },
       ],
@@ -70,12 +68,12 @@ const ProfileScreen = () => {
   };
 
   // handling opening the camera
-  const openCamera = () => {
+  const openCamera = useCallback(() => {
     setIsCameraReady(true);
-  };
+  }, [isCameraReady]);
 
   // handling front & back camera swtich
-  const switchCamera = () => {
+  const switchCamera = useCallback(() => {
     if (isPreview) {
       return;
     }
@@ -84,11 +82,10 @@ const ProfileScreen = () => {
         ? Camera.Constants.Type.front
         : Camera.Constants.Type.back
     );
-  };
+  }, [cameraType]);
 
   // Taking Photo using camera handled
-  const onSnap = async () => {
-    console.log(cameraRef.current);
+  const onSnap = useCallback(async () => {
     if (cameraRef.current) {
       const options = { quality: 0.7, };
       const data = await cameraRef.current.takePictureAsync(options);
@@ -100,26 +97,25 @@ const ProfileScreen = () => {
         setIsPreview(true);
       }
     }
-  };
+  }, [previewImg, isPreview]);
 
   // canceling the pic snaped
-  const cancelPreview = async () => {
+  const cancelPreview = useCallback(async () => {
     await cameraRef.current.resumePreview();
     setIsPreview(false);
     setPreviewImg('');
-  };
+  }, [previewImg, isPreview]);
 
   // selecting the pic snaped to set as DP
-  const okPreview = async () => {
+  const okPreview = useCallback(async () => {
     await cameraRef.current.resumePreview();
     setIsPreview(false);
     storeImageUri(previewImg);
     setIsCameraReady(false);
-    console.log(isCameraReady);
-  }
+  }, []);
 
   // handling opening the gallery to accesss the photos
-  const openGallery = async () => {
+  const openGallery = useCallback(async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
@@ -130,21 +126,25 @@ const ProfileScreen = () => {
     if (!result.canceled) {
       storeImageUri(result.assets[0].uri);
     }
-  };
+  }, []);
 
   // Storing image URI in AsyncStorage
-  const storeImageUri = async (uri) => {
+  const storeImageUri = useCallback(async (uri) => {
     try {
       await AsyncStorage.setItem('profileImage', uri);
-      setImage('Image set')
+      setImageUri(uri);
+      showToastWithGravityAndOffset();
     } catch (error) {
-      console.error('Error storing image URI:', error);
+      Alert.alert('Error saving image',
+        [{text: 'Ok', style: 'cancel'},],
+        { cancelable: true }
+      )
     }
-  };
+  }, [imageUri]);
 
 
   // alert to choose the image source
-  const chooseImageSource = () => {
+  const chooseImageSource = useCallback(() => {
     Alert.alert(
       'Choose Image Source',
       'Select an option to set your profile picture',
@@ -155,12 +155,23 @@ const ProfileScreen = () => {
       ],
       { cancelable: true }
     );
-  };
+  }, []);
 
   // enable & disable switch
-  const toggleButton = () => {
+  const toggleButton = useCallback(() => {
     setIsEnabled(prevState => !prevState)
-  }
+  }, [isEnabled]);
+
+  // profile pic set toast message
+  const showToastWithGravityAndOffset = () => {
+    ToastAndroid.showWithGravityAndOffset(
+      'Profile Picture is set, You Looks Awesome!',
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+      25,
+      50,
+    );
+  };
 
   return (
     <View style={styles.container}>
