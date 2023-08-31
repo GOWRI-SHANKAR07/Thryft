@@ -19,7 +19,6 @@ const HomeScreen = () => {
       const storedImageUri = await AsyncStorage.getItem('profileImage');
       if (storedImageUri) {
         setImageUri(storedImageUri);
-        console.log(imageUri, "ImageUri");
       }
     })();
   }, []); 
