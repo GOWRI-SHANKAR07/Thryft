@@ -51,6 +51,9 @@ const CatlogScreen = () => {
         data={data}
         numColumns={2}
         keyExtractor={item => item.id.toString()}
+        initialNumToRender={10} // Number of items to render initially
+        windowSize={5} // Number of items to keep in the rendering window
+        removeClippedSubviews={true} // Remove items that are not visible on the screen
         renderItem={({ item }) => <CatalogCard items={item} />}
       />
     </View>
