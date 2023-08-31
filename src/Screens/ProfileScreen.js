@@ -30,15 +30,18 @@ const ProfileScreen = () => {
     }
 
     checkPermission();
+  }, []);
 
+  useEffect(() => {
+    // fetching the profile pic from async storage
     (async () => {
       const storedImageUri = await AsyncStorage.getItem('profileImage');
       if (storedImageUri) {
         setImageUri(storedImageUri);
       }
     })();
+  }, [imageUri])
 
-  }, [permissionGranted, imageUri]);
 
   // camera reference
   const cameraRef = useRef();
@@ -136,7 +139,7 @@ const ProfileScreen = () => {
       showToastWithGravityAndOffset();
     } catch (error) {
       Alert.alert('Error saving image',
-        [{text: 'Ok', style: 'cancel'},],
+        [{ text: 'Ok', style: 'cancel' },],
         { cancelable: true }
       )
     }
