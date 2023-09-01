@@ -15,7 +15,7 @@ function CatlogScreen() {
 
   const Catalog = useCallback(({item}) => (
     <CatalogCard items={item} />
-  ))
+  ), []);
 
   return (
     <View style={styles.container}>
@@ -54,7 +54,7 @@ function CatlogScreen() {
         removeClippedSubviews={true} // Remove items that are not visible on the screen
         renderItem={Catalog}
         getItemLayout={(data, index) => ({
-          length: ITEM_HEIGHT, // Replace ITEM_HEIGHT with the actual height of your list item
+          length: ITEM_HEIGHT,
           offset: ITEM_HEIGHT * index,
           index,
         })}
