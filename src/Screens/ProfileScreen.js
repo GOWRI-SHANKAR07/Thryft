@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, FlatList, PermissionsAndroid, ToastAndroid, Alert, } from 'react-native'
+import { View, Text, Image, TouchableOpacity, FlatList, PermissionsAndroid, ToastAndroid, Alert, BackHandler, } from 'react-native'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { styles } from '../styles/Profile'
 import { AntDesign, MaterialIcons, Octicons, Entypo, Fontisto } from '@expo/vector-icons';
@@ -12,7 +12,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Avatar from '../Components/Avatar';
 
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ navigation }) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
   const [isPreview, setIsPreview] = useState(null);
@@ -40,8 +40,7 @@ const ProfileScreen = () => {
         setImageUri(storedImageUri);
       }
     })();
-  }, [imageUri])
-
+  }, [imageUri]);
 
   // camera reference
   const cameraRef = useRef();
@@ -195,8 +194,8 @@ const ProfileScreen = () => {
                 <TouchableOpacity onPress={permissionGranted ? chooseImageSource : userPermission}>
                   <Avatar />
                 </TouchableOpacity>
-                <Octicons
-                  name="dot-fill"
+                <Entypo
+                  name="camera"
                   size={24}
                   color="yellow"
                   style={styles.active}
@@ -263,6 +262,11 @@ const ProfileScreen = () => {
       )}
       {!isPreview && isCameraReady && (
         <View style={styles.bottomButtonsContainer}>
+          <TouchableOpacity style={styles.closeCam}
+            onPress={() => setIsCameraReady(false)}
+          >
+            <AntDesign name='close' size={32} color='#fff' />
+          </TouchableOpacity>
           <TouchableOpacity disabled={!isCameraReady} onPress={switchCamera}>
             <MaterialIcons name='flip-camera-ios' size={28} color='white' />
           </TouchableOpacity>
