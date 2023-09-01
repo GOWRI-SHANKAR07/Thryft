@@ -52,7 +52,7 @@ function CatlogScreen() {
         initialNumToRender={10} // Number of items to render initially
         windowSize={5} // Number of items to keep in the rendering window
         removeClippedSubviews={true} // Remove items that are not visible on the screen
-        renderItem={({ item }) => <Catalog item= {item} />}
+        renderItem={Catalog}
         getItemLayout={(data, index) => ({
           length: ITEM_HEIGHT, // Replace ITEM_HEIGHT with the actual height of your list item
           offset: ITEM_HEIGHT * index,
