@@ -5,8 +5,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { pixelSizeVertical } from '../Constants/Theme';
 
 
-function CatalogCard({ items }) {
-
+const CatalogCard = ({ items }) => {
     return (
         <View style={styles.container}>
             <Image
@@ -36,4 +35,4 @@ function CatalogCard({ items }) {
     )
 }
 
-export default CatalogCard
+export default CatalogCard;
