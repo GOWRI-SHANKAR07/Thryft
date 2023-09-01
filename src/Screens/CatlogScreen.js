@@ -1,17 +1,21 @@
 import { View, Text, Image, TouchableOpacity, ScrollView, FlatList } from 'react-native'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { styles } from '../styles/Catlog'
 import { Entypo } from '@expo/vector-icons';
 import { data } from '../Data/CatalogData';
-import CatalogCard from '../Components/CatalogCard';
 import { Octicons } from '@expo/vector-icons';
 import { useAppContext } from '../Context/ContextProvider';
 import Avatar from '../Components/Avatar';
 import { heightPixel } from '../Constants/Theme';
+import CatalogCard from '../Components/CatalogCard';
 
 function CatlogScreen() {
 
   const ITEM_HEIGHT = heightPixel(100);
+
+  const Catalog = useCallback(({item}) => (
+    <CatalogCard items={item} />
+  ))
 
   return (
     <View style={styles.container}>
@@ -48,7 +52,7 @@ function CatlogScreen() {
         initialNumToRender={10} // Number of items to render initially
         windowSize={5} // Number of items to keep in the rendering window
         removeClippedSubviews={true} // Remove items that are not visible on the screen
-        renderItem={({ item }) => <CatalogCard items={item} />}
+        renderItem={({ item }) => <Catalog item= {item} />}
         getItemLayout={(data, index) => ({
           length: ITEM_HEIGHT, // Replace ITEM_HEIGHT with the actual height of your list item
           offset: ITEM_HEIGHT * index,
