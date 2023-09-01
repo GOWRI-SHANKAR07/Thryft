@@ -11,7 +11,6 @@ import { useColorSchemeContext } from '../Theme/ColorTheme';
 import SellScreen from '../Screens/SellScreen';
 import { useAppContext } from '../Context/ContextProvider';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
-import CameraScreen from '../Screens/CameraScreen';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { Colors, fontPixel, widthPixel } from '../Constants/Theme';
 
