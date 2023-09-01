@@ -7,8 +7,11 @@ import CatalogCard from '../Components/CatalogCard';
 import { Octicons } from '@expo/vector-icons';
 import { useAppContext } from '../Context/ContextProvider';
 import Avatar from '../Components/Avatar';
+import { heightPixel } from '../Constants/Theme';
 
-const CatlogScreen = () => {
+function CatlogScreen() {
+
+  const ITEM_HEIGHT = heightPixel(100);
 
   return (
     <View style={styles.container}>
@@ -46,6 +49,11 @@ const CatlogScreen = () => {
         windowSize={5} // Number of items to keep in the rendering window
         removeClippedSubviews={true} // Remove items that are not visible on the screen
         renderItem={({ item }) => <CatalogCard items={item} />}
+        getItemLayout={(data, index) => ({
+          length: ITEM_HEIGHT, // Replace ITEM_HEIGHT with the actual height of your list item
+          offset: ITEM_HEIGHT * index,
+          index,
+        })}
       />
     </View>
   )
