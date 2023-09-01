@@ -172,6 +172,18 @@ const styles = StyleSheet.create({
         borderRadius: Math.floor(CAPTURE_SIZE / 2),
         marginBottom: 28,
         marginHorizontal: 30
+    },
+    closeCam: {
+        position: 'absolute',
+        bottom: pixelSizeVertical(700),
+        right: 20,
+        height: 50,
+        width: 50,
+        borderRadius: 25,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#5A45FF',
+        opacity: 0.7
     }
 })
 
