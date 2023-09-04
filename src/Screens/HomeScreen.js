@@ -6,13 +6,13 @@ import { Octicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Colors, pixelSizeVertical, widthPixel } from '../Constants/Theme';
 import { useAppContext } from '../Context/ContextProvider';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from 'react-native';
 import Avatar from '../Components/Avatar';
 
 const HomeScreen = () => {
 
   // image upload context
-  const { img, imageUri, setImageUri } = useAppContext();
+  // const { setImageUri } = useAppContext();
 
   useEffect(() => {
     (async () => {

@@ -99,7 +99,7 @@ const TabScreens = ({ route }) => {
           );
         }
       })}
-      initialRouteName='Home'
+      initialRouteName='Order'
       tabBarPosition='bottom'
     >
       <Tab.Screen name='Home' component={HomeScreen} />

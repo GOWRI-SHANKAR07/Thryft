@@ -8,7 +8,7 @@ import ProfileList from '../Components/ProfileList';
 import { useAppContext } from '../Context/ContextProvider';
 import * as ImagePicker from 'expo-image-picker';
 import { Camera, getCameraPermissionsAsync } from 'expo-camera';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from 'react-native';
 import Avatar from '../Components/Avatar';
 
 
